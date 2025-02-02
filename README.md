@@ -17,9 +17,9 @@ app/
 │   │── mechanic.py
 │── static/
 │   │── swagger.json
-│   │── __init__.py
-│   │── config.py
-│   │── db.py
+│── __init__.py
+│── config.py
+│── db.py
 │── instance/
 │   │── shop.db
 │── tests/
