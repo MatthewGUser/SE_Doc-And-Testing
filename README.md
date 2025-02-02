@@ -67,7 +67,7 @@ python run.py
 
 ## **API Documentation**
 
-Access Swagger UI at: `http://localhost:5000/swagger`
+Access Swagger UI in `app/static/swagger.json`
 
 ### API Endpoints
 
