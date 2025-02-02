@@ -5,21 +5,22 @@ REST API with Swagger documentation and unit tests for managing auto shop mechan
 ## Project Structure
 
 ```
-app/
-│── blueprints/
+SE_Doc-And-Testing/
+│── app/
+│   │── blueprints/
+│   │   │── __init__.py
+│   │   │── mechanic.py
+│   │── models/
+│   │   │── __init__.py
+│   │   │── mechanic.py
+│   │── routes/
+│   │   │── __init__.py
+│   │   │── mechanic.py
+│   │── static/
+│   │   │── swagger.json
 │   │── __init__.py
-│   │── mechanic.py
-│── models/
-│   │── __init__.py
-│   │── mechanic.py
-│── routes/
-│   │── __init__.py
-│   │── mechanic.py
-│── static/
-│   │── swagger.json
-│── __init__.py
-│── config.py
-│── db.py
+│   │── config.py
+│   │── db.py
 │── instance/
 │   │── shop.db
 │── tests/
