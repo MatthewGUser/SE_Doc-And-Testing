@@ -2,16 +2,18 @@
 	"swagger": "2.0",
 	"info": {
 		"title": "Auto Shop API",
-		"version": "1.0.0"
+		"version": "1.0.0",
+		"description": "API for managing auto shop mechanics and customers"
 	},
 	"paths": {
-		"/api/mechanics": {
+		"/mechanics": {
 			"get": {
 				"tags": ["mechanics"],
 				"summary": "Get all mechanics",
+				"description": "Returns a list of all mechanics in the system",
 				"responses": {
 					"200": {
-						"description": "List of mechanics",
+						"description": "List of mechanics retrieved successfully",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -24,10 +26,13 @@
 			"post": {
 				"tags": ["mechanics"],
 				"summary": "Create new mechanic",
+				"description": "Add a new mechanic to the system",
 				"parameters": [
 					{
 						"in": "body",
 						"name": "mechanic",
+						"description": "Mechanic object to be created",
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/MechanicInput"
 						}
@@ -35,7 +40,187 @@
 				],
 				"responses": {
 					"201": {
-						"description": "Mechanic created"
+						"description": "Mechanic created successfully",
+						"schema": {
+							"$ref": "#/definitions/Mechanic"
+						}
+					},
+					"400": {
+						"description": "Invalid input"
+					}
+				}
+			}
+		},
+		"/mechanics/{id}": {
+			"parameters": [
+				{
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer",
+					"description": "Mechanic ID"
+				}
+			],
+			"get": {
+				"tags": ["mechanics"],
+				"summary": "Get mechanic by ID",
+				"description": "Returns a single mechanic",
+				"responses": {
+					"200": {
+						"description": "Mechanic found",
+						"schema": {
+							"$ref": "#/definitions/Mechanic"
+						}
+					},
+					"404": {
+						"description": "Mechanic not found"
+					}
+				}
+			},
+			"put": {
+				"tags": ["mechanics"],
+				"summary": "Update mechanic",
+				"description": "Update existing mechanic's information",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "mechanic",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/MechanicInput"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Mechanic updated",
+						"schema": {
+							"$ref": "#/definitions/Mechanic"
+						}
+					},
+					"404": {
+						"description": "Mechanic not found"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["mechanics"],
+				"summary": "Delete mechanic",
+				"description": "Remove mechanic from system",
+				"responses": {
+					"204": {
+						"description": "Mechanic deleted"
+					},
+					"404": {
+						"description": "Mechanic not found"
+					}
+				}
+			}
+		},
+		"/customers": {
+			"get": {
+				"tags": ["customers"],
+				"summary": "Get all customers",
+				"description": "Returns a list of all customers",
+				"responses": {
+					"200": {
+						"description": "List of customers retrieved successfully",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Customer"
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["customers"],
+				"summary": "Create new customer",
+				"description": "Add a new customer to the system",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "customer",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CustomerInput"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Customer created successfully",
+						"schema": {
+							"$ref": "#/definitions/Customer"
+						}
+					},
+					"400": {
+						"description": "Invalid input"
+					}
+				}
+			}
+		},
+		"/customers/{id}": {
+			"parameters": [
+				{
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer",
+					"description": "Customer ID"
+				}
+			],
+			"get": {
+				"tags": ["customers"],
+				"summary": "Get customer by ID",
+				"description": "Returns a single customer",
+				"responses": {
+					"200": {
+						"description": "Customer found",
+						"schema": {
+							"$ref": "#/definitions/Customer"
+						}
+					},
+					"404": {
+						"description": "Customer not found"
+					}
+				}
+			},
+			"put": {
+				"tags": ["customers"],
+				"summary": "Update customer",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "customer",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CustomerInput"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Customer updated",
+						"schema": {
+							"$ref": "#/definitions/Customer"
+						}
+					},
+					"404": {
+						"description": "Customer not found"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["customers"],
+				"summary": "Delete customer",
+				"responses": {
+					"204": {
+						"description": "Customer deleted"
+					},
+					"404": {
+						"description": "Customer not found"
 					}
 				}
 			}
@@ -58,6 +243,27 @@
 				"name": { "type": "string" },
 				"email": { "type": "string" },
 				"specialty": { "type": "string" }
+			}
+		},
+		"Customer": {
+			"type": "object",
+			"properties": {
+				"id": { "type": "integer" },
+				"first_name": { "type": "string" },
+				"last_name": { "type": "string" },
+				"email": { "type": "string" },
+				"phone": { "type": "string" },
+				"created_at": { "type": "string", "format": "date-time" }
+			}
+		},
+		"CustomerInput": {
+			"type": "object",
+			"required": ["first_name", "last_name", "email", "phone"],
+			"properties": {
+				"first_name": { "type": "string" },
+				"last_name": { "type": "string" },
+				"email": { "type": "string" },
+				"phone": { "type": "string" }
 			}
 		}
 	}

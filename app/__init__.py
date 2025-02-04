@@ -6,14 +6,13 @@ import click
 def create_app(config_name=None):
     app = Flask(__name__)
     
+    # Load config
     if config_name == 'testing':
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        app.config.from_object('app.config.TestingConfig')
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
+        app.config.from_object('app.config.Config')
     
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
+    # Initialize extensions
     db.init_app(app)
     ma.init_app(app)
     
@@ -27,7 +26,8 @@ def create_app(config_name=None):
         except Exception as e:
             click.echo(f"Error initializing database: {e}")
     
-    from .blueprints.mechanics import mechanics_bp
-    app.register_blueprint(mechanics_bp)
+    # Register blueprints
+    from .blueprints import register_blueprints
+    register_blueprints(app)
     
     return app

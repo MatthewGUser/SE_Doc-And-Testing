@@ -8,27 +8,31 @@ REST API with Swagger documentation and unit tests for managing auto shop mechan
 SE_Doc-And-Testing/
 │── app/
 │   │── blueprints/
-│   │   │── __init__.py
-│   │   │── mechanic.py
+|   |   │── customer/
+│   │   │   │── __init__.py
+│   │   │   └── routes.py
+|   |   │── mechanic/
+│   │   │   │── __init__.py
+│   │   │   └── routes.py
+│   │   └── __init__.py
 │   │── models/
 │   │   │── __init__.py
-│   │   │── mechanic.py
-│   │── routes/
-│   │   │── __init__.py
-│   │   │── mechanic.py
+│   │   │── customer.py
+│   │   └── mechanic.py
 │   │── static/
-│   │   │── swagger.json
+│   │   └── swagger.json
 │   │── __init__.py
 │   │── config.py
-│   │── db.py
+│   └── db.py
 │── instance/
-│   │── shop.db
+│   └── shop.db
 │── tests/
 │   │── __init__.py
-│   │── test_mechanic.py
+│   │── test_customer.py
+│   └── test_mechanic.py
 │── README.md
 │── requirements.txt
-│── run.py
+└── run.py
 ```
 
 ## Setup Instructions
@@ -71,6 +75,8 @@ Access Swagger UI in `app/static/swagger.json`
 
 ### API Endpoints
 
+### API Endpoints
+
 Mechanic Endpoints
 
 - GET `/api/mechanics/`: Retrieve all mechanics
@@ -78,6 +84,14 @@ Mechanic Endpoints
 - POST `/api/mechanics/`: Create new mechanic
 - PUT `/api/mechanics/<id>`: Update mechanic
 - DELETE `/api/mechanics/<id>`: Delete mechanic
+
+Customer Endpoints
+
+- GET `/api/customers/`: Retrieve all customers
+- GET `/api/customers/<id>`: Get customer by ID
+- POST `/api/customers/`: Create new customer
+- PUT `/api/customers/<id>`: Update customer
+- DELETE `/api/customers/<id>`: Delete customer
 
 ### Testing
 
@@ -95,3 +109,12 @@ python -m unittest discover tests
 - **name:** String (Required)
 - **email:** String (Required, Unique)
 - **specialty:** String
+
+**Customer**
+
+- **id:** Integer (Primary Key)
+- **first_name:** String (Required)
+- **last_name:** String (Required)
+- **email:** String (Required, Unique)
+- **phone:** String (Required)
+- **created_at:** DateTime
